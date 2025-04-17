@@ -17,7 +17,7 @@ public class RedirectMrComponent : IComponent
     {
         await UiComponentHelper.DefferAsync(args.Interaction);
 
-        var mergeUrl = UiComponentHelper.TryGetFieldFromMessageAsync(args, "MergeRequestUrl", x => x);
+        var mergeUrl = UiComponentHelper.TryGetFieldFromMessageAsync(args, FieldConstatns.MrLink, x => x);
 
         await args.Interaction.DeleteOriginalResponseAsync();
 

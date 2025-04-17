@@ -24,7 +24,7 @@ public static class Embed
                                ## В вашем сообщении обнаружена ссылка на MR.
                                Хотите отправить его на ревью?
                                """)
-            .AddField("MergeRequestUrl", mergeRequestUrl)
+            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
             .Build();
     }
 
@@ -35,7 +35,7 @@ public static class Embed
             .WithDescription("""
                               ## Выберите проверяющих для вашего MR.
                               """)
-            .AddField("MergeRequestUrl", mergeRequestUrl)
+            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
             .Build();
     }
 
@@ -51,7 +51,7 @@ public static class Embed
         return new DiscordEmbedBuilder()
             .WithColor(DiscordColor.Yellow)
             .WithDescription(response.ToString())
-            .AddField("MergeRequestUrl", mergeRequestUrl)
+            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
             .Build();
     }
 

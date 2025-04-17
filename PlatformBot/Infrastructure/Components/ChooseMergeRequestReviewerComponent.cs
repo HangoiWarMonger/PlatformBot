@@ -26,7 +26,7 @@ public class ChooseMergeRequestReviewerComponent(
     {
         await UiComponentHelper.DefferAsync(args.Interaction);
 
-        var mergeRequest = UiComponentHelper.TryGetFieldFromMessageAsync(args, "MergeRequestUrl", x => x);
+        var mergeRequest = UiComponentHelper.TryGetFieldFromMessageAsync(args, FieldConstatns.MrLink, x => x);
         var channelId = options.Value.MrRedirection.RedirectionChannelId;
         var channel = await client.GetChannelAsync(channelId);
 
