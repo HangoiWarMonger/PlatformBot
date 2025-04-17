@@ -30,7 +30,8 @@ public class ChooseMergeRequestReviewerComponent(
         var channelId = options.Value.MrRedirection.RedirectionChannelId;
         var channel = await client.GetChannelAsync(channelId);
 
-        var chooses = args.Values.Select(x => $"<@{x}>");
+        var chooses = args.Values.Select(x => $"<@{x}>").ToList();
+        chooses.Add($"<@{args.User.Id}>");
 
         var author = args.User.Id;
         await channel.SendMessageAsync(new DiscordMessageBuilder()

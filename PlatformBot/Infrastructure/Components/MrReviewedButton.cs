@@ -15,8 +15,29 @@ public class MrReviewedButton : IComponent
     /// <inheritdoc />
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
-        // TODO: сделать обратное сообщение в ветку.
+        if (!UserWasMentionedInMessage(args))
+        {
+            return;
+        }
+
         await UiComponentHelper.DefferAsync(args.Interaction);
         await args.Interaction.DeleteOriginalResponseAsync();
+    }
+
+    /// <summary>
+    /// Проверка на то, что пользователь был упомянут в сообщении.
+    /// </summary>
+    private static bool UserWasMentionedInMessage(ComponentInteractionCreateEventArgs args)
+    {
+        var members = args.Message.MentionedUsers.Select(u => u.Id);
+
+        var actorId = args.User.Id;
+
+        if (members.Contains(actorId))
+        {
+            return true;
+        }
+
+        return false;
     }
 }
