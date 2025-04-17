@@ -3,10 +3,11 @@ using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.SlashCommands;
 using Microsoft.Extensions.Options;
+using PlatformBot.Infrastructure.Discord.Components.Abstractions;
+using PlatformBot.Infrastructure.Discord.Components.Implementations.Extensions;
+using PlatformBot.Infrastructure.Discord.Shared;
 using PlatformBot.Infrastructure.Options;
 using PlatformBot.Infrastructure.Services.Common;
-using PlatformBot.Infrastructure.Services.Discord;
-using PlatformBot.Infrastructure.Services.Discord.Components;
 
 namespace PlatformBot.Infrastructure.Extensions;
 
@@ -21,6 +22,11 @@ public static class DependencyInjectionExtension
 
         services.AddScoped<IMessageHandler, MergeRequestRedirectionService>();
 
+        services.AddUiComponents(cfg =>
+        {
+            cfg.LoadFromAssembly(typeof(Program).Assembly);
+        });
+
         return services;
     }
 
@@ -28,11 +34,9 @@ public static class DependencyInjectionExtension
     /// Добавление дискорд клиента.
     /// </summary>
     /// <param name="services">Набор сервисов.</param>
-    public static IServiceCollection AddDiscordClient(this IServiceCollection services)
+    public static IServiceCollection AddDiscordClient(this IServiceCollection services, IConfiguration configuration)
     {
-        services
-            .AddOptionsWithValidateOnStart<DiscordOptions>(nameof(DiscordOptions))
-            .ValidateOnStart();
+        services.Configure<DiscordOptions>(configuration.GetSection(nameof(DiscordOptions)));
 
         services.AddSingleton<DiscordClient>(provider =>
         {
@@ -62,9 +66,7 @@ public static class DependencyInjectionExtension
 
             slashConfig.SlashCommandErrored += async (_, args) =>
             {
-                logger.LogCritical("Exception: {Name}: {Message}", args.Exception.GetType().Name,
-                    args.Exception.Message);
-                logger.LogError("{Trace}", args.Exception.StackTrace);
+                logger.LogError(args.Exception,"Ошибка во время выполнения: {Message}", args.Exception.Message);
 
                 await args.Context.EditResponseAsync(new DiscordWebhookBuilder()
                     .AddEmbed(Embed.Error(args.Context.Member, args.Exception.Message)));
@@ -82,7 +84,12 @@ public static class DependencyInjectionExtension
 
             client.MessageCreated += async (_, args) =>
             {
-                await using var scope = services.BuildServiceProvider().CreateAsyncScope();
+                if (args.Author.IsBot)
+                {
+                    return;
+                }
+
+                await using var scope = provider.CreateAsyncScope();
                 var endpoint = scope.ServiceProvider.GetRequiredService<MessageTopologyService>();
                 await endpoint.MapMessage(args);
             };

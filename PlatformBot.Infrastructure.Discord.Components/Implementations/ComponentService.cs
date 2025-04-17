@@ -1,17 +1,17 @@
 using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
+using PlatformBot.Infrastructure.Discord.Components.Abstractions;
 
-namespace PlatformBot.Infrastructure.Services.Discord.Components;
+namespace PlatformBot.Infrastructure.Discord.Components.Implementations;
 
 /// <summary>
 /// Сервис управления компонентами.
 /// </summary>
-public class ComponentService : IComponentConfigurator, IComponentExecutor
+public class ComponentService : IComponentExecutor
 {
     private readonly List<InteractiveComponent> _interactions = [];
 
-    /// <inheritdoc />
     public void Register(DiscordComponent discordComponent, Func<DiscordClient, ComponentInteractionCreateEventArgs, Task> action)
     {
         var interactiveComponent = new InteractiveComponent(discordComponent.CustomId, action);

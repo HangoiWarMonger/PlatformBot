@@ -1,7 +1,7 @@
 using DSharpPlus;
 using DSharpPlus.EventArgs;
 
-namespace PlatformBot.Infrastructure.Services.Discord.Components;
+namespace PlatformBot.Infrastructure.Discord.Components.Abstractions;
 
 /// <summary>
 /// Контракт сервиса вызова действий компонентов.

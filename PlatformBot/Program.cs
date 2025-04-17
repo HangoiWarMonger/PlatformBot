@@ -7,7 +7,8 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
 builder.Services
-    .AddDiscordClient()
+    .AddInfrastructure(builder.Configuration)
+    .AddDiscordClient(builder.Configuration)
     .AddHostedService<DiscordBotHostedService>();
 
 var app = builder.Build();
