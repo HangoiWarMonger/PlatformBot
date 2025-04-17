@@ -31,11 +31,11 @@ public static class UiComponentHelper
         }
     }
 
-    public static async Task DefferAsync(DiscordInteraction interaction)
+    public static async Task<DiscordMessage> DefferAsync(DiscordInteraction interaction)
     {
         await interaction.CreateResponseAsync(InteractionResponseType.DeferredMessageUpdate);
 
-        await interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder()
+        return await interaction.EditOriginalResponseAsync(new DiscordWebhookBuilder()
             .AddEmbed(Embed.Info("Обработка команды...", "Сейчас закончим!")));
     }
 }

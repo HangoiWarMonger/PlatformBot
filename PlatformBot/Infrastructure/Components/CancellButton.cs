@@ -6,15 +6,14 @@ using PlatformBot.Infrastructure.Discord.Shared;
 
 namespace PlatformBot.Infrastructure.Components;
 
-public class DoNotRedirectMrButton : IComponent
+public class CancellButton : IComponent
 {
     public static DiscordComponent UiComponent { get; } =
-        new DiscordButtonComponent(ButtonStyle.Secondary, "do_not_redirect_merge_button", "Нет");
+        new DiscordButtonComponent(ButtonStyle.Secondary, "cancel_button", "Отмена");
 
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
         await UiComponentHelper.DefferAsync(args.Interaction);
         await args.Interaction.DeleteOriginalResponseAsync();
-        Console.WriteLine("Привет");
     }
 }

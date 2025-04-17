@@ -1,3 +1,4 @@
+using System.Text;
 using DSharpPlus.Entities;
 
 namespace PlatformBot.Infrastructure.Discord.Shared;
@@ -23,6 +24,33 @@ public static class Embed
                                ## В вашем сообщении обнаружена ссылка на MR.
                                Хотите отправить его на ревью?
                                """)
+            .AddField("MergeRequestUrl", mergeRequestUrl)
+            .Build();
+    }
+
+    public static DiscordEmbed ReviewerAsk(string mergeRequestUrl)
+    {
+        return new DiscordEmbedBuilder()
+            .WithColor(DiscordColor.Green)
+            .WithDescription("""
+                              ## Выберите проверяющих для вашего MR.
+                              """)
+            .AddField("MergeRequestUrl", mergeRequestUrl)
+            .Build();
+    }
+
+    public static DiscordEmbed ReviewerSend(string mergeRequestUrl, ulong author)
+    {
+        var response = new StringBuilder();
+
+        response.AppendLine($"## Запрошено ревью MR от <@{author}>");
+
+        response.AppendLine(EmptySymbol);
+
+        response.AppendLine();
+        return new DiscordEmbedBuilder()
+            .WithColor(DiscordColor.Yellow)
+            .WithDescription(response.ToString())
             .AddField("MergeRequestUrl", mergeRequestUrl)
             .Build();
     }

@@ -39,7 +39,7 @@ public partial class MergeRequestRedirectionService(
 
         var messageBuilder = new DiscordMessageBuilder()
             .WithEmbed(Embed.MergeRequestRedirectionAsk(mergeUrl))
-            .AddComponents(RedirectMrComponent.UiComponent, DoNotRedirectMrButton.UiComponent);
+            .AddComponents(RedirectMrComponent.UiComponent, CancellButton.UiComponent);
 
         await args.Channel.SendMessageAsync(messageBuilder);
     }

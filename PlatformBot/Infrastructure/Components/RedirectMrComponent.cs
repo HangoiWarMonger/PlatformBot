@@ -16,7 +16,16 @@ public class RedirectMrComponent : IComponent
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
         await UiComponentHelper.DefferAsync(args.Interaction);
+
+        var mergeUrl = UiComponentHelper.TryGetFieldFromMessageAsync(args, "MergeRequestUrl", x => x);
+
         await args.Interaction.DeleteOriginalResponseAsync();
-        Console.WriteLine("Привет");
+
+        var a = new DiscordMessageBuilder()
+            .WithAllowedMentions(Mentions.All)
+            .AddEmbed(Embed.ReviewerAsk(mergeUrl!))
+            .AddComponents(ChooseMergeRequestReviewerComponent.UiComponent);
+
+        await args.Channel.SendMessageAsync(a);
     }
 }
