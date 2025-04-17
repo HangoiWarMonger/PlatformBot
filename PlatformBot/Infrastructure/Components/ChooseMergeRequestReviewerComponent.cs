@@ -36,6 +36,7 @@ public class ChooseMergeRequestReviewerComponent(
         await channel.SendMessageAsync(new DiscordMessageBuilder()
             .AddEmbed(Embed.ReviewerSend(mergeRequest, author))
             .WithAllowedMentions(Mentions.All)
+            .AddComponents(MrReviewedButton.UiComponent)
             .WithContent(string.Join(" ", chooses)));
 
         await args.Interaction.DeleteOriginalResponseAsync();
