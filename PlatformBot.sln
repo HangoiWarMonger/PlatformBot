@@ -8,6 +8,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformBot.Infrastructure.
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformBot.Infrastructure.Discord.Shared", "PlatformBot.Infrastructure.Discord.Shared\PlatformBot.Infrastructure.Discord.Shared.csproj", "{293A15F6-4CDF-4617-9595-876C05BAA10C}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PlatformBot.Infrastructure.DAL", "PlatformBot.Infrastructure.DAL\PlatformBot.Infrastructure.DAL.csproj", "{6A166628-A1F4-48E8-B9EB-A223475D125E}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,9 +28,14 @@ Global
 		{293A15F6-4CDF-4617-9595-876C05BAA10C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{293A15F6-4CDF-4617-9595-876C05BAA10C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{293A15F6-4CDF-4617-9595-876C05BAA10C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6A166628-A1F4-48E8-B9EB-A223475D125E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6A166628-A1F4-48E8-B9EB-A223475D125E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6A166628-A1F4-48E8-B9EB-A223475D125E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6A166628-A1F4-48E8-B9EB-A223475D125E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{9FE486AB-8D71-4613-9FD5-FB344D39B0BC} = {27227148-8010-4C21-BE29-8819D4889069}
 		{293A15F6-4CDF-4617-9595-876C05BAA10C} = {27227148-8010-4C21-BE29-8819D4889069}
+		{6A166628-A1F4-48E8-B9EB-A223475D125E} = {27227148-8010-4C21-BE29-8819D4889069}
 	EndGlobalSection
 EndGlobal
