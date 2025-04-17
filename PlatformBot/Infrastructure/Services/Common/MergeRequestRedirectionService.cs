@@ -1,5 +1,4 @@
 using System.Text.RegularExpressions;
-using DSharpPlus;
 using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Options;
@@ -10,7 +9,6 @@ using PlatformBot.Infrastructure.Options;
 namespace PlatformBot.Infrastructure.Services.Common;
 
 public partial class MergeRequestRedirectionService(
-    DiscordClient client,
     IOptions<DiscordOptions> options
     ) : IMessageHandler
 {
@@ -39,7 +37,7 @@ public partial class MergeRequestRedirectionService(
 
         var messageBuilder = new DiscordMessageBuilder()
             .WithEmbed(Embed.MergeRequestRedirectionAsk(mergeUrl))
-            .AddComponents(RedirectMrComponent.UiComponent, CancellButton.UiComponent);
+            .AddComponents(RedirectMrComponent.UiComponent, CancelButton.UiComponent);
 
         await args.Channel.SendMessageAsync(messageBuilder);
     }

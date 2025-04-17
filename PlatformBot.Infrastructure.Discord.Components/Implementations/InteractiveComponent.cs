@@ -1,7 +1,7 @@
 ﻿using DSharpPlus;
 using DSharpPlus.EventArgs;
 
-namespace PlatformBot.Infrastructure.Discord.Components;
+namespace PlatformBot.Infrastructure.Discord.Components.Implementations;
 
 /// <summary>
 /// Хранение данных компонента.

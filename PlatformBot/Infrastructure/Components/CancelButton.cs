@@ -6,11 +6,16 @@ using PlatformBot.Infrastructure.Discord.Shared;
 
 namespace PlatformBot.Infrastructure.Components;
 
-public class CancellButton : IComponent
+/// <summary>
+/// Стандартная кнопка отмены. Убирает сообщение.
+/// </summary>
+public class CancelButton : IComponent
 {
+    /// <inheritdoc />
     public static DiscordComponent UiComponent { get; } =
         new DiscordButtonComponent(ButtonStyle.Secondary, "cancel_button", "Отмена");
 
+    /// <inheritdoc />
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
         await UiComponentHelper.DefferAsync(args.Interaction);
