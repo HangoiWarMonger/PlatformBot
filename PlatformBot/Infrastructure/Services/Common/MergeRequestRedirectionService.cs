@@ -5,6 +5,7 @@ using Microsoft.Extensions.Options;
 using PlatformBot.Infrastructure.Components;
 using PlatformBot.Infrastructure.DAL.Abstractions;
 using PlatformBot.Infrastructure.Discord.Shared;
+using PlatformBot.Infrastructure.Dto;
 using PlatformBot.Infrastructure.Options;
 
 namespace PlatformBot.Infrastructure.Services.Common;
@@ -38,13 +39,12 @@ public partial class MergeRequestRedirectionService(
         var mergeUrl = MergeRequestRegex().Match(args.Message.Content).Value;
 
         var id = Guid.NewGuid();
-        var messageData = new MessageData
+        var messageData = new MessageData(id);
+        messageData.AddOrUpdateData(new MergeRedirectDto
         {
-            Data =
-            {
-                {FieldConstatns.MrLink, mergeUrl}
-            }
-        };
+            MergeRequestUrl = mergeUrl
+        });
+
         await repository.AddAsync(messageData);
         await repository.SaveChangesAsync();
 

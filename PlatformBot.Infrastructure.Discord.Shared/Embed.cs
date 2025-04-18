@@ -40,11 +40,13 @@ public static class Embed
             .Build();
     }
 
-    public static DiscordEmbed ReviewerSend(Guid id, ulong author)
+    public static DiscordEmbed ReviewerSend(Guid id, string mergeRequestUrl, ulong author)
     {
         var response = new StringBuilder();
 
-        response.AppendLine($"## Запрошено ревью MR от <@{author}>");
+        response.AppendLine($"## Запрошено ревью MR от <@{author}>")
+            .AppendLine()
+            .AppendLine(mergeRequestUrl);
 
         response.AppendLine(EmptySymbol);
 

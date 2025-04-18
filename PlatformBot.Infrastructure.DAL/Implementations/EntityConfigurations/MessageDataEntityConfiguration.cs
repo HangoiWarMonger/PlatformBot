@@ -20,10 +20,10 @@ public class MessageDataEntityConfiguration : IEntityTypeConfiguration<MessageDa
         builder.Property(x => x.Id)
             .HasColumnName(nameof(MessageData.Id))
             .IsRequired()
-            .ValueGeneratedOnAdd();
+            .ValueGeneratedNever();
 
-        builder.Property(x => x.Data)
-            .HasColumnName(nameof(MessageData.Data))
+        builder.Property<Dictionary<string, object>>("_data")
+            .HasColumnName("Data")
             .IsRequired()
             .HasColumnType("jsonb")
             .HasConversion(
