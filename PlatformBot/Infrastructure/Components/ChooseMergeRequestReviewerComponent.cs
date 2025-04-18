@@ -34,14 +34,14 @@ public class ChooseMergeRequestReviewerComponent(
         var channel = await client.GetChannelAsync(channelId);
 
         var message = await repository.GetByIdAsync(id);
-        var mergeRequest = message.GetData<MergeRedirectDto>().MergeRequestUrl;
+        var mergeRequest = message.GetData<MergeRedirectDto>();
 
         var chooses = args.Values.Select(x => $"<@{x}>").ToList();
         chooses.Add($"<@{args.User.Id}>");
 
         var author = args.User.Id;
         await channel.SendMessageAsync(new DiscordMessageBuilder()
-            .AddEmbed(Embed.ReviewerSend(id, mergeRequest, author))
+            .AddEmbed(Embed.ReviewerSend(id, mergeRequest.MergeRequestUrl, author, mergeRequest.OriginalMessageUrl))
             .WithAllowedMentions(Mentions.All)
             .AddComponents(MrReviewedButton.UiComponent)
             .WithContent(string.Join(" ", chooses)));

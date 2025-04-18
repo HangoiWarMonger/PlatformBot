@@ -42,7 +42,8 @@ public partial class MergeRequestRedirectionService(
         var messageData = new MessageData(id);
         messageData.AddOrUpdateData(new MergeRedirectDto
         {
-            MergeRequestUrl = mergeUrl
+            MergeRequestUrl = mergeUrl,
+            OriginalMessageUrl = args.Message.JumpLink.ToString()
         });
 
         await repository.AddAsync(messageData);
