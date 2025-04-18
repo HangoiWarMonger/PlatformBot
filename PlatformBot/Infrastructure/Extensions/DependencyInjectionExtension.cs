@@ -16,7 +16,12 @@ namespace PlatformBot.Infrastructure.Extensions;
 /// </summary>
 public static class DependencyInjectionExtension
 {
-    public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
+    /// <summary>
+    /// Добавление сервисов Discord.
+    /// </summary>
+    /// <param name="services">Сервисы.</param>
+    /// <param name="configuration">Конфигурация.</param>
+    public static IServiceCollection AddDiscordServices(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<MessageTopologyService>();
 
@@ -26,6 +31,8 @@ public static class DependencyInjectionExtension
         {
             cfg.LoadFromAssembly(typeof(Program).Assembly);
         });
+
+        services.AddDiscordClient(configuration);
 
         return services;
     }

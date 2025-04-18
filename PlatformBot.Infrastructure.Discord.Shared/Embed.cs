@@ -16,30 +16,31 @@ public static class Embed
 
     private const string ErrorLiteral = "Ошибка.";
 
-    public static DiscordEmbed MergeRequestRedirectionAsk(string mergeRequestUrl)
+    public static DiscordEmbed MergeRequestRedirectionAsk(Guid id, string mergeRequestUrl)
     {
         return new DiscordEmbedBuilder()
             .WithColor(DiscordColor.Green)
             .WithDescription($"""
                                ## В вашем сообщении обнаружена ссылка на MR.
                                Хотите отправить его на ревью?
+                               {mergeRequestUrl}
                                """)
-            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
+            .WithFooter(id.ToString())
             .Build();
     }
 
-    public static DiscordEmbed ReviewerAsk(string mergeRequestUrl)
+    public static DiscordEmbed ReviewerAsk(Guid id)
     {
         return new DiscordEmbedBuilder()
             .WithColor(DiscordColor.Green)
             .WithDescription("""
                               ## Выберите проверяющих для вашего MR.
                               """)
-            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
+            .WithFooter(id.ToString())
             .Build();
     }
 
-    public static DiscordEmbed ReviewerSend(string mergeRequestUrl, ulong author)
+    public static DiscordEmbed ReviewerSend(Guid id, ulong author)
     {
         var response = new StringBuilder();
 
@@ -51,7 +52,7 @@ public static class Embed
         return new DiscordEmbedBuilder()
             .WithColor(DiscordColor.Yellow)
             .WithDescription(response.ToString())
-            .AddField(FieldConstatns.MrLink, mergeRequestUrl)
+            .WithFooter(id.ToString())
             .Build();
     }
 
@@ -61,12 +62,13 @@ public static class Embed
     /// <param name="title">Заголовок.</param>
     /// <param name="description">Информация.</param>
     /// <returns>Embed для отправки его в ответ.</returns>
-    public static DiscordEmbed Info(string title, string description)
+    public static DiscordEmbed Info(Guid id, string title, string description)
     {
         return new DiscordEmbedBuilder()
             .WithTitle(title)
             .WithDescription(description)
             .WithColor(DiscordColor.Cyan)
+            .WithFooter(id.ToString())
             .Build();
     }
 
@@ -75,11 +77,12 @@ public static class Embed
     /// </summary>
     /// <param name="info">Информация.</param>
     /// <returns>Embed.</returns>
-    public static DiscordEmbed Info(string info)
+    public static DiscordEmbed Info(Guid id, string info)
     {
         return new DiscordEmbedBuilder()
             .WithDescription(info)
             .WithColor(DiscordColor.DarkGray)
+            .WithFooter(id.ToString())
             .Build();
     }
 

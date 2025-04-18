@@ -3,13 +3,15 @@ using DSharpPlus.Entities;
 using DSharpPlus.EventArgs;
 using Microsoft.Extensions.Options;
 using PlatformBot.Infrastructure.Components;
+using PlatformBot.Infrastructure.DAL.Abstractions;
 using PlatformBot.Infrastructure.Discord.Shared;
 using PlatformBot.Infrastructure.Options;
 
 namespace PlatformBot.Infrastructure.Services.Common;
 
 public partial class MergeRequestRedirectionService(
-    IOptions<DiscordOptions> options
+    IOptions<DiscordOptions> options,
+    IMessageDataRepository repository
     ) : IMessageHandler
 {
     /// <inheritdoc />
@@ -35,8 +37,19 @@ public partial class MergeRequestRedirectionService(
     {
         var mergeUrl = MergeRequestRegex().Match(args.Message.Content).Value;
 
+        var id = Guid.NewGuid();
+        var messageData = new MessageData
+        {
+            Data =
+            {
+                {FieldConstatns.MrLink, mergeUrl}
+            }
+        };
+        await repository.AddAsync(messageData);
+        await repository.SaveChangesAsync();
+
         var messageBuilder = new DiscordMessageBuilder()
-            .WithEmbed(Embed.MergeRequestRedirectionAsk(mergeUrl))
+            .WithEmbed(Embed.MergeRequestRedirectionAsk(id, mergeUrl))
             .AddComponents(RedirectMrComponent.UiComponent, CancelButton.UiComponent);
 
         await args.Channel.SendMessageAsync(messageBuilder);

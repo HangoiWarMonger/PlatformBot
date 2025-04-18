@@ -3,7 +3,7 @@ namespace PlatformBot.Infrastructure.DAL.Abstractions;
 /// <summary>
 /// Данные сообщения.
 /// </summary>
-public class MessageData : IEquatable<MessageData>
+public sealed class MessageData : IEquatable<MessageData>
 {
     /// <summary>
     /// Идентификатор.
@@ -13,12 +13,12 @@ public class MessageData : IEquatable<MessageData>
     /// <summary>
     /// Данные.
     /// </summary>
-    public Dictionary<string, object> Data { get; private set; }
+    public Dictionary<string, object> Data { get; private set; } = new();
 
     /// <summary>
     /// Конструктор для EF core.
     /// </summary>
-    private MessageData()
+    public MessageData()
     {
     }
 

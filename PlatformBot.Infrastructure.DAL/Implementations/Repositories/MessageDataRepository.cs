@@ -23,6 +23,12 @@ public class MessageDataRepository(ApplicationDbContext dbContext) : IMessageDat
     }
 
     /// <inheritdoc />
+    public async Task AddAsync(MessageData message, CancellationToken cancellationToken = default)
+    {
+        await dbContext.Messages.AddAsync(message, cancellationToken);
+    }
+
+    /// <inheritdoc />
     public Task SaveChangesAsync(CancellationToken cancellationToken = default)
     {
         return dbContext.SaveChangesAsync(cancellationToken);

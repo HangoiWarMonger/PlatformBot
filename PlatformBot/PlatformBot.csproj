@@ -17,6 +17,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PlatformBot.Infrastructure.DAL\PlatformBot.Infrastructure.DAL.csproj" />
       <ProjectReference Include="..\PlatformBot.Infrastructure.Discord.Components\PlatformBot.Infrastructure.Discord.Components.csproj" />
       <ProjectReference Include="..\PlatformBot.Infrastructure.Discord.Shared\PlatformBot.Infrastructure.Discord.Shared.csproj" />
     </ItemGroup>

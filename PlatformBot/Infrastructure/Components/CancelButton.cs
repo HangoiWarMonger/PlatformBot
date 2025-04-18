@@ -18,7 +18,8 @@ public class CancelButton : IComponent
     /// <inheritdoc />
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
-        await UiComponentHelper.DefferAsync(args.Interaction);
+        var id = args.Message.GetInteractionId();
+        await UiComponentHelper.DefferAsync(id, args.Interaction);
         await args.Interaction.DeleteOriginalResponseAsync();
     }
 }

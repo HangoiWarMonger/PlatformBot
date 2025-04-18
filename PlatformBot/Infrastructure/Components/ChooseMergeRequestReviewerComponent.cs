@@ -10,7 +10,7 @@ namespace PlatformBot.Infrastructure.Components;
 
 public class ChooseMergeRequestReviewerComponent(
     IOptions<DiscordOptions> options
-    ) : IComponent
+) : IComponent
 {
     /// <inheritdoc />
     public static DiscordComponent UiComponent { get; } =
@@ -24,9 +24,9 @@ public class ChooseMergeRequestReviewerComponent(
     /// <inheritdoc />
     public async Task ExecuteAsync(DiscordClient client, ComponentInteractionCreateEventArgs args)
     {
-        await UiComponentHelper.DefferAsync(args.Interaction);
+        var id = args.Message.GetInteractionId();
+        await UiComponentHelper.DefferAsync(id, args.Interaction);
 
-        var mergeRequest = UiComponentHelper.TryGetFieldFromMessageAsync(args, FieldConstatns.MrLink, x => x);
         var channelId = options.Value.MrRedirection.RedirectionChannelId;
         var channel = await client.GetChannelAsync(channelId);
 
@@ -35,7 +35,7 @@ public class ChooseMergeRequestReviewerComponent(
 
         var author = args.User.Id;
         await channel.SendMessageAsync(new DiscordMessageBuilder()
-            .AddEmbed(Embed.ReviewerSend(mergeRequest, author))
+            .AddEmbed(Embed.ReviewerSend(id, author))
             .WithAllowedMentions(Mentions.All)
             .AddComponents(MrReviewedButton.UiComponent)
             .WithContent(string.Join(" ", chooses)));

@@ -20,7 +20,8 @@ public class MrReviewedButton : IComponent
             return;
         }
 
-        await UiComponentHelper.DefferAsync(args.Interaction);
+        var id = args.Message.GetInteractionId();
+        await UiComponentHelper.DefferAsync(id, args.Interaction);
         await args.Interaction.DeleteOriginalResponseAsync();
     }
 

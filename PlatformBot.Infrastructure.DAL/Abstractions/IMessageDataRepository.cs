@@ -11,8 +11,15 @@ public interface IMessageDataRepository
     /// <param name="messageId">Id сообщения.</param>
     /// <param name="asNoTracking">Использовать ли трекер.</param>
     /// <param name="cancellationToken">Токен для отмены операции.</param>
-    /// <returns></returns>
+    /// <returns>Сообщение.</returns>
     Task<MessageData?> GetByIdAsync(Guid messageId, bool asNoTracking = false, CancellationToken cancellationToken = default);
+
+    /// <summary>
+    /// Добавление сущности.
+    /// </summary>
+    /// <param name="message">Сообщение.</param>
+    /// <param name="cancellationToken">Токен для отмены операции.</param>
+    Task AddAsync(MessageData message, CancellationToken cancellationToken = default);
 
     /// <summary>
     /// Сохранить изменения.
