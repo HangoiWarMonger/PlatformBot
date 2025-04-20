@@ -11,7 +11,7 @@ public class ApplicationDbContext : DbContext
     /// <summary>
     /// Сообщения.
     /// </summary>
-    public DbSet<MessageData> Messages => Set<MessageData>();
+    public DbSet<MergeRequestRedirectionMessageData> MrRedirectionMessages => Set<MergeRequestRedirectionMessageData>();
 
     /// <summary>
     /// Контекст для работы с базой данных.

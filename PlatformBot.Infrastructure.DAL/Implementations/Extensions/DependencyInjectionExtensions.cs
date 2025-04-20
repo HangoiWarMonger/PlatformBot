@@ -1,7 +1,5 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using PlatformBot.Infrastructure.DAL.Abstractions;
-using PlatformBot.Infrastructure.DAL.Implementations.Repositories;
 
 namespace PlatformBot.Infrastructure.DAL.Implementations.Extensions;
 
@@ -18,8 +16,6 @@ public static class DependencyInjectionExtensions
         ArgumentException.ThrowIfNullOrWhiteSpace(connectionString);
 
         services.AddSqlite<ApplicationDbContext>($"Data Source={connectionString}");
-
-        services.AddScoped<IMessageDataRepository, MessageDataRepository>();
 
         return services;
     }

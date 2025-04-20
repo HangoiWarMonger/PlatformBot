@@ -12,6 +12,8 @@
         <PackageReference Include="DSharpPlus.CommandsNext" Version="4.5.1" />
         <PackageReference Include="DSharpPlus.Interactivity" Version="4.5.1" />
         <PackageReference Include="DSharpPlus.SlashCommands" Version="4.5.1" />
+        <PackageReference Include="GitLab.Client" Version="1.3.5" />
+        <PackageReference Include="GitLab.Contracts" Version="1.3.5" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.8"/>
         <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0"/>
     </ItemGroup>
@@ -20,6 +22,10 @@
       <ProjectReference Include="..\PlatformBot.Infrastructure.DAL\PlatformBot.Infrastructure.DAL.csproj" />
       <ProjectReference Include="..\PlatformBot.Infrastructure.Discord.Components\PlatformBot.Infrastructure.Discord.Components.csproj" />
       <ProjectReference Include="..\PlatformBot.Infrastructure.Discord.Shared\PlatformBot.Infrastructure.Discord.Shared.csproj" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <Folder Include="Api\" />
     </ItemGroup>
 
 </Project>

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using PlatformBot.Infrastructure.DAL.Implementations;
 
@@ -10,9 +11,11 @@ using PlatformBot.Infrastructure.DAL.Implementations;
 namespace PlatformBot.Infrastructure.DAL.Implementations.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20250420160725_FixA")]
+    partial class FixA
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder.HasAnnotation("ProductVersion", "9.0.4");
@@ -44,10 +47,10 @@ namespace PlatformBot.Infrastructure.DAL.Implementations.Migrations
                             b1.Property<Guid>("MergeRequestRedirectionMessageDataId")
                                 .HasColumnType("TEXT");
 
-                            b1.Property<ulong?>("ChannelId")
+                            b1.Property<ulong>("ChannelId")
                                 .HasColumnType("INTEGER");
 
-                            b1.Property<ulong?>("MessageId")
+                            b1.Property<ulong>("MessageId")
                                 .HasColumnType("INTEGER");
 
                             b1.HasKey("MergeRequestRedirectionMessageDataId");
@@ -77,7 +80,8 @@ namespace PlatformBot.Infrastructure.DAL.Implementations.Migrations
                                 .HasForeignKey("MergeRequestRedirectionMessageDataId");
                         });
 
-                    b.Navigation("RedirectMessageLocation");
+                    b.Navigation("RedirectMessageLocation")
+                        .IsRequired();
 
                     b.Navigation("RequestMessageLocation")
                         .IsRequired();
